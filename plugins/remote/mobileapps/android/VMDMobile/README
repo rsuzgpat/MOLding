@@ -1,0 +1,59 @@
+this code is compiled on a machine with adequate versions of ant and java
+
+( On TCBG systems, to configure the right versions of ant/java:
+source ~collab/.collabcshrc  )
+
+ant debug
+
+This generates an apk file in the bin directory which can then be copied to a
+webserver and loaded onto an android phone.
+
+Then, go to the webserver location where you put the APK
+in a phone browser to load onto phone.
+
+
+If you run the android emulator, 
+
+
+Getting the error:
+
+..../android-sdk-linux_86/tools/ant/main_rules.xml:236:
+com.android.sdklib.build.ApkCreationException: Debug Certificate expired on
+7/16/11 6:57 PM
+
+
+?
+
+rm ~/.android/debug.keystore
+
+
+and rerun the 'ant debug'
+
+
+============================================================
+Screenshots:
+
+Connect the device to the computer using USB.  Make sure that USB debugging
+is turned on on the device.  From the android directory on the computer,
+run  
+
+tools/ddms
+
+From there, select the device and the 'Device' menu has a Screen capture 
+option.
+
+
+===============================================================
+Debugging:
+
+from a command prompt from the android directory, run 
+
+platform-tools/adb logcat
+
+to see debugging from the android session.  Running tools/ddms also shows
+the debug messages (as well as other info)
+
+
+
+
+

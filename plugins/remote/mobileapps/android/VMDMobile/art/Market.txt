@@ -1,0 +1,25 @@
+Description:
+
+
+
+Control your computer's VMD session from your Android device!
+
+This app requires you to have VMD 1.9.1, from the Theoretical and
+Computational Biophysics Group at the University of Illinois, installed on your
+computer.
+
+Note:  This app does NOT give you the ability to run VMD _ON_ your Android
+device.  It allows you to remotely control a VMD session running on your desktop
+computer.
+
+Once this app is connected to a running VMD session you can use it rotate,
+translate, and pinch 'n zoom your system.  It can be used to move through
+the frames of a trajectory that you have loaded into VMD and can also act
+as a tracker.
+
+Script writers can configure the four user buttons to perform whatever VMD
+action they desire.
+
+Visit the website http://www.ks.uiuc.edu/Research/vmd/ for more information on
+the VMD program and usage of the app.
+

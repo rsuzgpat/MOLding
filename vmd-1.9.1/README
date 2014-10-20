@@ -1,0 +1,336 @@
+                        README file for VMD 1.9.1
+---------------------------------------------------------------------------
+
+What is VMD?            See also http://www.ks.uiuc.edu/Research/vmd/
+---------------------------------------------------------------------
+  VMD is designed for the visualization and analysis of biological
+systems such as proteins, nucleic acids, lipid bilayer assemblies,
+etc.  It may be used to view more general molecules, as VMD can read
+standard Protein Data Bank (PDB) files and display the contained
+structure.  VMD provides a wide variety of methods for rendering and
+coloring molecule.  VMD can be used to animate and analyze the trajectory 
+of molecular dynamics (MD) simulations, and can interactively manipulate
+molecules being simulated on remote computers (Interactive MD).
+
+VMD has many features, which include:
+  o No limit on the number of molecules, atoms, residues or
+    number of trajectory frames, except available memory.
+
+  o Many molecular and volumetric rendering and coloring methods.
+
+  o Extensive atom selection language with boolean and algebraic operators, 
+    regular expressions, distance based selections, and more.
+
+  o Extensive graphical and text interfaces to Tcl, Tk, and Python 
+    to provide powerful scripting and analysis capabilities.
+
+  o High-quality on-screen rendering using OpenGL programmable shading on
+    advanced graphics accelerators.
+
+  o Stereoscopic display with shutter glasses, autostereoscopic flat panels,
+    anaglyph stereo glasses, and side-by-side stereo viewing.
+
+  o 3-D interactive control through the use of joysticks, Spaceballs,
+    haptic devices and other advanced input devices, with support for
+    Virtual Reality Peripheral Network (VRPN).
+
+  o An extensible plugin-based file loading system with support for
+    popular formats such as AMBER, CHARMM, Gromacs, NAMD, PDB, X-PLOR,
+    and many others, as well as automatic conversion through Babel. 
+
+  o Export displayed scene to external rendering formats including POV-Ray, 
+    Raster3D, RenderMan, Gelato, Tachyon, Wavefront, as well 
+    as STL or VRML2 files for 3-D printing.
+
+  o Integration of multiple sequence alignment and evolutionary 
+    analysis tools, in the form of the Multiseq plugin and its
+    related toolset.
+
+  o Perform interactive molecular dynamics (IMD) simulations using 
+    NAMD, Protomol, or other programs as simulation back-ends.    
+
+  o Integration with the program NAMD, a fast, parallel, and scalable
+    molecular dynamics program developed in conjunction with VMD.
+    See the NAMD page for details: http://www.ks.uiuc.edu/Research/namd
+
+  o Integration with the BioCoRE collaborative research environment.
+    VMD can "publish" molecular graphics scripts to BioCoRE, so that
+    collaborators can work together over the internet.
+    See the BioCoRE page for details: http://www.ks.uiuc.edu/Research/biocore
+
+
+What's new in VMD 1.9.1?
+------------------------
+  New rendering and display features
+    o New "QuickSurf" molecular surface representation allows molecular
+      dynamics trajectories to be animated for selections of 
+      10,000 to well over 100,000 atoms depending on the speed of the 
+      host machine.  Fast multi-core and GPU-accelerated implementations 
+      of the QuickSurf representation enable faster/smoother 
+      trajectory playback for moderate system sizes, and interactive 
+      surface calculation for systems containing up to 20 million atoms 
+      on machines with sufficient host memory and GPU memory.
+    o Updated all VMD graphical representations to use new 
+      atom selection traversal optimizations for faster trajectory animation,
+      particularly when animating subsets of very large structures.
+    o Improved export of representation group hierarchy and 
+      material properties to Wavefront .obj files.
+
+  Performance Improvements
+    o The performance of atom selection operations has been significantly
+      increased for common cases where a subset of atoms (e.g. solute atoms) 
+      are selected, in a fairly contiguous index range.  This benefits the
+      performance of most selection operations, measure commands, 
+      atom selection queries, and mouse-based picking and selection operations.
+    o Greatly improved the responsiveness of the VMD graphical interface
+      when loading over 2,000 molecules at a time.
+    o VMD now supports un-buffered disk I/O to allow large structure
+      files and trajectories to be read at rates of up 2 GB/sec on 
+      fast SSD disk arrays.
+    o Linux versions of VMD are now compiled using the Intel C/C++
+      compilers, enabling SSE and various autovectorization performance
+      improvements. 
+
+  Other features and improvements
+    o New test version of native 64-bit MacOS X port of VMD based on beta
+      versions of Tcl 8.6 and FLTK for 64-bit MacOS X.
+    o Updated VMD to use advanced GPU features in CUDA 4.0
+    o Increased default CAVElib and FreeVR shared memory allocation to 2 GB.
+    o Updated the FreeVR arena allocation code to try and loop over 
+      arena sizes if the initial allocation fails
+    o Improved default FreeVR wand position offset and coordinate scaling
+
+  New and improved plugins and extensions
+    o CGTools: Added support for group rotation to optimized 
+      reverse coarse graining
+    o FFTK: The new Force Field Toolkit (FFTK) plugin is a set of tools 
+      that aid users in the development of CHARMM-compatible force 
+      field parameters, including: charges, bonds, angles, and dihedrals
+    o HeatMapper: A new plugin for displaying 3-D plots in a 2-D "heat map"
+    o NetworkView: A new plugin for the study of allostery and signalling
+      through network models, allowing networks can be loaded and mapped onto 
+      molecular structures loaded in VMD
+    o NMWiz: A new normal mode analysis plugin
+    o Molefacture: Added +4 oxidation state for sulphur
+    o Multiseq: Allow non-redundant set calculations with marked sequences,
+      corrected handling of non-standard residues in ClustalW and MAFFT calls
+    o ProPKA: A new graphical interface to allow results from ProPKA runs to
+      be interactively displayed in VMD
+    o Remote: New plugin for managing VMD remote control connections 
+      from mobile phones and wireless tablet devices
+    o RMSD Visualizer: A new plugin for computing and plotting RMSD and RMSF
+      values for selected atoms over trajectories
+    o Timeline: improved graphical interface with better zooming, and
+      improved display of very long timescale trajectories 
+    o Modified TkCon to prevent it from sourcing command line args 
+      as script files at startup.
+    o ViewMaster: Added new procedures to get the next and previous views, 
+      relative to the current view that is being shown, in support of 
+      the VMD remote control plugin, so that the VMD Aux-event keys can 
+      trigger viewmaster to cycle through a slideshow.
+
+  New and improved file import and export
+    o Updated the cross-platform fast I/O routines used by molfile plugins
+      to support direct un-buffered I/O for high performance access to 
+      SSDs and SSD RAID arrays on the Linux and Windows platforms.
+    o Enabled automatic compilation of plugins that use sqlite and libexpat.
+    o dmsplugin: Latest version contributed by D.E. Shaw Research.
+    o dtrplugin: Latest version contributed by D.E. Shaw Research.
+    o hoomdplugin: Updated to latest version.
+      The HOOMD plugin is compiled by default on Linux and MacOS X.
+    o gamessplugin: Added support for Firefly log files, improved 
+      support for PC-GAMESS
+    o jsplugin: Support for fast un-buffered I/O, enabling
+      2 GB/sec streaming trajectory read rates on fast SSD arrays.
+    o lammpsplugin: Added optional support for dipolar particles by
+      translating them into two atoms around the center with the distance
+      scaled by the value stored in LAMMPSDIPOLE2ATOMS, which also enables
+      this feature. recognize more field types in preparation for the
+      second part of the update.  Update output format to the current style.
+      Added support for element, mass and diameter field.
+      Improve handling of periodic box output.
+    o maeplugin: Latest version contributed by D.E. Shaw Research.
+    o mol2plugin: updated to align decimal points in charge column
+    o moldenplugin: Added support for "(AU)" in units strings emitted by 
+      Molcas, added support for alternative forms of scientific notation in 
+      basis set coefficients.
+    o msmsplugin: Added floating point code to workaround issues with 
+      floating point emulation in the Microsft compiler toolchain.
+    o offplugin: New OFF reader plugin contributed by Francois-Xavier Coudert
+    o psfplugin: Add support for new NAMD-specific formats for structures
+      containing very long atom names and types, e.g. CGenFF models. 
+    o stlplugin: Added floating point code to workaround issues with 
+      floating point emulation in the Microsft compiler toolchain.
+
+  User documentation updates
+    o Minor improvements and corrections to the VMD User's Guide,
+      added documentation for new commands, graphical representations,
+      and environment variables.
+    o chirality: Added citation now that the paper describing this plugin
+      is published.
+    o cispeptide: Added citation now that the paper describing this plugin
+      is published.
+
+  Bug fixes and small improvements
+    o Fixed Python material change tuple argument format list
+    o Fixed bugs in FreeVR button/tracker subclass initialization, and 
+      button assignment in the latest revs of FreeVR.
+    o Corrected references to material files when exporting Wavefront OBJ
+      files on the Windows platform.
+    o cionize: Updated cionize Makefile for latest CUDA and Intel C/C++
+      compilers for the iccgpuionize64 target.
+    o irspecgui: Corrected bug when reading charges from external file.
+    o molefacture: Fixed calculation of formal charge for R1-(PO4-)-R2.
+      Fixed a bug to correctly find "C*" atom types in the OPLS parameter file.
+    o multiseq: Revised unknown residue conversion code to use X for
+      unknown residues if amino acids; N if nucleic.
+    o mutator: Fix inconsistencies in mutator version numbers, and cranked
+      to next version for recent updates.
+    o namdenergy: Improved the efficacy of the "silence" option.
+      Fixed the behavior of the "-updatesel" flag.
+    o paratool: Fix call to non-existent "hesstrans" proc so it
+      calls "hessiantransform".
+    o psfgen: Made the psfgen segment generation output slightly more compact.
+      Cause psfgen to prepend "psfgen) " to all of its console output.
+    o qmtool: fixed reading of ESP charges for later versions of Gaussian
+    o rmsdtt: Updated RMSD Trajectory Tool GUI to report 4 digits for
+      molecule IDs.
+    o runante: Improved handling of antechamber errors for poor structures.
+      Fix to make sure bonds are written to antechamber input files.
+      Fixed bug when checking for Antechamber executable.
+    o runsqm: Fixed bug in ::runsqm::sqminit when checking for sqm executable.
+    o solvate: Modified solvate to print estimated completion times at most
+      only once every 30 seconds rather than during generation of every
+      replica.  Updated the solvate plugin to better handle generation of very
+      large solvent boxes.  We now check the maximum segment name length 
+      that will result from the required number of replicas, and use 
+      either decimal, hexadecimal, or base-26 alphanumeric segment 
+      naming schemes depending on which one will most easily fit into 
+      the 4-character field width limit of the oldest PSF/PDB file formats.  
+      Improved the diagnostic messages.
+    o topotools: Guessing element from mass was off. 
+      Added guess name from type and made element lookups case insensitive.
+      Use resid for the molecule id on writing, since this is what 
+      we read in.  Corrected output format for hybrid atom style.
+    o timeline: Fixed bad error condition that could occur when no results 
+      could be produced by a calculation.
+    o viewchangerender: Updated to fix small GUI bugs.
+    o vmdmovie: Fixed a bug in the movie maker plugin that prevented movies
+      from being created correctly for Windows users.
+
+Known bugs
+----------
+  Visit the VMD page for information on known bugs, workarounds, and fixes:
+    http://www.ks.uiuc.edu/Research/vmd/
+
+
+Cost and Availability
+---------------------
+  VMD is produced by the The Theoretical and Computational Biophysics Group,
+an NIH Resource for Macromolecular Modeling and Bioinformatics, that
+develops and distributes free, effective tools (with source code) for 
+molecular dynamics studies in structural biology.  For more information, see:
+  http://www.ks.uiuc.edu/Research/biocore/
+  http://www.ks.uiuc.edu/Research/namd/
+  http://www.ks.uiuc.edu/Research/vmd/
+  http://www.ks.uiuc.edu/Development/biosoftdb/
+  http://www.ks.uiuc.edu/Development/MDTools/
+
+The VMD project is funded by the National Institutes of Health
+(grant number P41-RR005969).
+
+
+Disclaimer and Copyright
+------------------------
+  VMD is Copyright (c) 1995-2011 the Board of Trustees of the 
+University of Illinois and others.  The terms for using, copying, 
+modifying, and distributing VMD are specified in the file LICENSE.
+
+The authors request that any published work which utilizes VMD 
+includes a reference to the VMD web page:
+  http://www.ks.uiuc.edu/Research/vmd/
+
+and/or the following reference:
+  Humphrey, W., Dalke, A. and Schulten, K., "VMD - Visual Molecular
+  Dynamics", J. Molec. Graphics, 1996, vol. 14, pp. 33-38.
+
+
+Documentation
+-------------
+  The VMD Installation Guide, User's Guide, and Programmer's Guide 
+are available which describe how to install, use, and modify VMD.  
+All three guides are available from the main web site.
+Online help may be accessed via the "Help" menu in the main VMD window 
+or by typing help in the VMD command window.  This will bring up the VMD
+quick help page in a browser, and will lead you to several other VMD help 
+files and manuals. 
+
+
+Quick Installation Instructions
+-------------------------------
+Detailed instructions for compiling VMD from source code
+can be found in the programmer's guide.
+
+The Windows version of VMD is distributed as a self-extracting 
+archive, and should be entirely self explanatory.  
+
+The native MacOS X version of VMD is packaged as a disk image and is
+extracted by opening the disk image, and dragging the "VMD" application
+contained inside into an appropriate directory.
+
+For quick installation of the binary distribution for Unix do the following:
+  1) Uncompress and untar the distribution into a working directory.
+     In this working directory, there are several subdirectories such 
+     as bin, src, doc, data, as well as this README and a configure script.  
+     Change to this working directory after the unpacking is complete.
+
+  2) Edit the file 'configure'; change the values for
+     the $install_library_dir and $install_bin_dir to a directory in 
+     which vmd data files and executables should be installed, be sure
+     that you installing into a clean target directory and not overwriting
+     an existing version of VMD (which would otherwise give problems):
+
+     $install_bin_dir is the location of the startup script 'vmd'.  
+     It should be located in the path of users interested in running VMD.
+
+     $install_library_dir is the location of all other VMD files.  
+     This included the binary and helper scripts.  It should not be 
+     in the path.
+
+  3) A Makefile must be generated based on these configuration variables
+     by running "./configure". 
+
+  4) After configuration is complete, cd to the src directory,
+     and type "make install".  This will install VMD in the two
+     directories listed above.  Note that running "make install" 
+     twice will print error messages because you are attempting to 
+     overwrite some read-only files.  Similarly, if you have incorrectly
+     specified the target installation directories or attempt to overwrite
+     an existing VMD installation, you will get error messages.
+
+  5) When installed, type 'vmd' to start (make sure the
+     $install_bin_dir directory is in your path).
+
+
+Required Libraries
+------------------
+  VMD requires several libraries and programs for various of its functions.
+In particular, it uses GL or OpenGL based 3-D rendering, and will require
+that you have the appropriate GL or OpenGL libraries on your system.  
+Other programs are required by some of VMD's optional features.
+Please visit the VMD web site for more information:
+  http://www.ks.uiuc.edu/Research/vmd/
+
+For problems, questions, or suggestions, send e-mail to 'vmd@ks.uiuc.edu'.
+  VMD Development Team
+  Theoretical and Computational Biophysics Group
+  University of Illinois and Beckman Institute
+  405 N. Matthews
+  Urbana, IL  61801
+  TBG: http://www.ks.uiuc.edu/
+  VMD: http://www.ks.uiuc.edu/Research/vmd/
+
+
+README for VMD; last modified February 1, 2012 by John E. Stone
+
+

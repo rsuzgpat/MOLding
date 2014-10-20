@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+   <item android:id="@+id/touchPadToggle" 
+         android:icon="@+drawable/ic_menu_stop"
+         android:title="@string/sendTouchStop" />
+   <item android:id="@+id/resetVMDView" 
+         android:icon="@+drawable/ic_menu_revert"
+         android:title="@string/resetVMDView" />
+   <item android:id="@+id/settings" 
+         android:icon="@+drawable/ic_menu_preferences"
+         android:title="@string/settings" />
+</menu>

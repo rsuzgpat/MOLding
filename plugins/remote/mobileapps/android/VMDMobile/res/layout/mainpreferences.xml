@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+        <PreferenceCategory
+                android:title="@string/serverSettings">
+           <EditTextPreference
+                android:name="@string/ipLabel"
+                android:summary="@string/ipDescript"
+                android:defaultValue="set.machine.name.in.settings"
+                android:title="@string/ipLabel"
+                android:key="ipEntry" />
+           <EditTextPreference
+                android:name="@string/portLabel"
+                android:summary="@string/portDescript"
+                android:inputType="numberDecimal"
+                android:defaultValue="3141"
+                android:title="@string/portLabel"
+                android:key="portEntry" />
+
+           <EditTextPreference
+                android:name="@string/nickLabel"
+                android:summary="@string/nickDescript"
+                android:defaultValue="Anonymous User"
+                android:maxLength="16"
+                android:title="@string/nickLabel"
+                android:key="nickEntry" />
+
+           <CheckBoxPreference
+                android:title="@string/showDebugLabel"
+                android:summary="@string/showDebugDescript"
+                android:defaultValue="false"
+                android:key="showDebug" />
+
+           <CheckBoxPreference
+                android:title="@string/showBackgroundImageLabel"
+                android:summary="@string/showBackgroundImageDescript"
+                android:defaultValue="true"
+                android:key="showBackgroundImage" />
+
+        </PreferenceCategory>
+</PreferenceScreen>

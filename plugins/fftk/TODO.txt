@@ -1,0 +1,153 @@
+#
+# $Id: TODO.txt,v 1.3 2012/01/26 22:10:17 johns Exp $ 
+#
+
+Things that still need to be done:
+
+Implementation-Related
+-----------------------
+DONE ## John S will do this for us when the time comes.  I also understand how to do it now.
+-- figure out how to link the various tcl files without the source statements
+-- figure out what we need to do to get the GUI registered in the menu (vmd_install_extension)
+-- run mk_package commands to setup pkgIndex.tcl file
+
+Other
+-----------------------
+-- we still haven't addressed the bugs loading zmats in QMTool
+DONE -- remove WriteEnComps from dihedral optimization
+DONE -- either disable "build run script" or run appropriate checks to run code in text-only mode (i.e., no Tk requirements)
+
+
+BUGS
+-----------------------
+STATUS -- DESCRIPTION
+-----------------------
+
+FIXED -- 1) still have an issue with filenames with spaces, but now probably do the use of the brackets:
+       couldn't open "{C:/Users/JC/Desktop/misc work files/paratoolnew/gui/prldTestData/parFiles/par_all22_prot.inp}":
+       no such file or directory
+       POSSIBLY FIXED.  PLEASE TEST (my tests work)
+       Fix applied to buildpar init, chargeopt, bonangleopt, and dihedralop
+
+
+FIXED  -- 2) change all *com files to something else (maybe *inp? *gif - gaussian input file, which has its own 
+       problems?).  I debated about whether or not to make an issue of this.  In Windows, *com is something
+       different, and it takes a couple extra steps to open it in a text editor (right-click -> open with 
+       isn't an option).
+       FIX:
+       everything should write to .gau
+
+BUG -- 3) add a log file for the geometry optimization to testDataOut.
+
+FIXED -- 4) everytime I try to write out an optimized PDB, it asks for the file name, then asks for the gaussian log file 
+      (despite having loaded one).  It doesn't write out anything.  (this is where a status bar might give a bit more 
+      of a clue).  Regarding consistency, you should make it more like the BuildPar tab, under "update parameter 
+      file..." so someone can see what files are loaded.
+      FIX: I modified the start up to include initialization of QMtool after
+      loading the package.  The GUI and procs have been updated to be more
+      consistent with the BuildPar method of updating files.
+
+
+FIXED -- 5) same problem with spaces in file names in the "Opt charges" tab, under Parameter Files.
+       Also, this should be something like "Parameter Files for ____".  I'm already getting confused
+       about where I'm supposed to put standard charmm stuff vs. new ones I'm generating (here both, right?).
+       FIX:
+       first part is same fix as for #1 (wrap filename in quotes)
+       second part is changed for "Parameter Files (both pre-defined and
+       in-progress)"
+
+
+FIXED -- 6) This is a big windows issue: there is no "which" in windows.  There is a "where" that seems equivalent, but after
+       playing around I can't seem to get it to work correctly in the code.  This is for the namd2 sanity check.  You might
+       check if/how namdenergy does it (or any other tool that uses NAMD).  Barring that, you can either A) put in an OS
+       check or B) just remove this check for now.
+
+       FIX:
+       use ::ExecTool::find to look for the specified namd binary file
+
+FIXED -- 7) For the QM target data, there's no easy way to guess the atom name?  They all have to be entered by hand?
+      FIX:
+      import routine parses the atom name out of the filename, if it
+      adheres to the naming convention.  note: i changed the convention
+      when i added ACC/DON after updating genzmat, which may be why
+      older filenames aren't parsed properly.
+
+FIXED -- 8) I get the following error when I try to run "Calculate Bonded Parameters".  I used as input the following:
+       prldTestData/01-sysprep/prld.psf
+       prldTestData/02-geoopt/prld_opt.pdb
+       tutorial/example/04-bonded/pacp-raw.par
+       tutorial/example/04-bonded/pacp-hess.log
+
+       can't read "availsolvents": no such variable
+       can't read "availsolvents": no such variable
+            while executing
+       "array set availsolv $availsolvents"
+            (procedure "parse_route_section" line 90)
+            invoked from within
+       "parse_route_section $tmproute"
+            (procedure "read_gaussian_log" line 65)
+            invoked from within
+       "read_gaussian_log $file $molid"
+            (procedure "::QMtool::load_gaussian_log" line 17)
+            invoked from within
+       "::QMtool::load_gaussian_log $glog"
+            (procedure "::ParaToolExt::GenBonded::calcBonded" line 44)
+             invoked from within
+       "::ParaToolExt::GenBonded::calcBonded "
+            invoked from within
+       ".pte_gui.hlf.nb.genbonded.calcBonded.calcBondedPars invoke "
+            invoked from within
+       ".pte_gui.hlf.nb.genbonded.calcBonded.calcBondedPars instate {pressed !disabled} { 
+       .pte_gui.hlf.nb.genbonded.calcBonded.calcBondedPars state !pressed; ..."
+            (command bound to event)
+      FIX.
+      qmtool has to be initialized before use.  we have taken care of
+      this in the pte.tcl file.  HOWEVER, qmtool should also be
+      immediately reset prior to use via ::QMtool::reset_all.
+
+FIXED? -- 9) The import button under "scan torsions" doesn't seem to do anything.
+       Also, the plugin can't auto-detect all the unique dihedrals?
+       Or at least their equilibrium value in the optimized geometry with some
+       reasonable initial values for +/- and step size? Otherwise this tab seems to work fine.
+       FIX:
+       the button seems to work fine for me; however, you make sure that
+       a psf, pdb, and parfile are set.  i have added a check to
+       validate this.  the button then reads the dihedrals in the par
+       file, searches the structure for the dihedrals, and measures the
+       current value.  it also autofills in the +/- and steps, although
+       there is no "smart" aspect to this last part...just default
+       values.
+
+FIXED -- 10) Opt torsions tab: adding parameter files suffers the same space issue with the full path.
+         FIX:
+         see fixes for #1, #5
+         
+FIXED  -- 11) scripts written by "build run script" options will not run unless we
+       modify our sourcing to separate out files that require Tk and those that
+       do not.
+       FIX:
+       fftk.tcl modified to only source the fftk_gui*.tcl if Tk has been
+       loaded
+
+BUG   -- 12) loading gaussian log files from genzmat should make molid
+      with most frames TOP, but vmd doesn't update frame counts until
+      after the code tries to determine the count
+
+
+REQUESTED FEATURES
+-----------------------
+
+DONE, see below -- 1) a status bar telling the user what was just done (see salt bridges for example); alternatively you could push 
+output to the tk console.  This is not critical, but it would be nice to get some feedback when clicking a 
+button like "write updated parameter file" to know it was done.
+
+
+RECENTLY ADDED FEATURES (need testing)
+-----------------------
+Dihedrals to Scan - selecting an entry draws a CPK representation in the window
+Plot or Hide QME/MMEi - checkboxes to include the QME and/or MMEi reference data for visualizing dihedral optimizations
+Parameter File Header - the parameter file writer will include a header with attribution information
+Console log - to write a message to the console log, ::ForceFieldToolKit::gui::consoleMessage "your message goes here"
+              clicking on the title toggles it on/off
+              the variable ::ForceFieldToolKit::gui::consoleMaxHistory defines the maximum number of messages stored (default=100)
+              i did not go crazy with sending messages to the console log.  we can improve message quality as we find it useful

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VMD Remote</string>
+
+    <string name="sendTouchStart">Start Sending Touchpad</string>
+    <string name="sendTouchStop">Stop Sending Touchpad</string>
+    <string name="resetVMDView">Reset VMD View</string>
+
+
+    <string name="sendSensorOn">Orient: Send</string>
+    <string name="sendSensorOff">Orient: Not Send</string>
+    <string name="sendTouchOn">Touch: Send</string>
+    <string name="sendTouchOff">Touch: Not Send</string>
+    <string name="button0On">Button 0 On</string>
+    <string name="button0Off">Button 0 Off</string>
+
+
+    <string name="button0">Aux-0</string>
+    <string name="button1">Aux-1</string>
+    <string name="button2">Aux-2</string>
+    <string name="button3">Aux-3</string>
+
+    <string name="settings">Settings</string>
+    <string name="exit">Exit</string>
+
+
+    <string name="chooseserver">Choose Server To Connect To</string>
+
+<!-- preferences screen --> 
+    <string name="serverSettings">VMD Server</string>
+    <string name="ipLabel">Server</string>
+    <string name="ipDescript">Fully-Qualified VMD Server Address </string>
+    <string name="portLabel">Port</string>
+    <string name="portDescript">Network port of the VMD server</string>
+    <string name="nickLabel">Nickname</string>
+    <string name="nickDescript">Nickname For Display</string>
+    <string name="showDebugLabel">Show Debugging</string>
+    <string name="showDebugDescript">Print Debug Msgs To Comment Area</string>
+    <string name="showBackgroundImageLabel">Show Background Image</string>
+    <string name="showBackgroundImageDescript">Should Image Appear In Touch Area Background?</string>
+
+
+
+</resources>
